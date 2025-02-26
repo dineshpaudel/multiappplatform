@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}AI Content Generator - Home{% endblock %}
+
+{% block content %}
+<div class="home-header">
+    <h1 class="page-title">AI Content Generator Platform</h1>
+    <p class="subtitle">Explore our collection of AI-powered creative tools</p>
+</div>
+
+<div class="app-cards">
+    <!-- Bedtime Story Generator -->
+    <div class="app-card">
+        <div class="app-card__image">
+            <img src="{{ url_for('static', filename='images/bedtimestories.webp') }}" alt="Bedtime Story Generator">
+        </div>
+        <div class="app-card__content">
+            <h2 class="app-card__title">Bedtime Story Generator</h2>
+            <p class="app-card__description">
+                Create personalized bedtime stories for any age group. Choose from various genres and themes,
+                then listen to your story with text-to-speech or download as text.
+            </p>
+            <a href="{{ url_for('bedtime_stories.index') }}" class="app-card__link">Create Stories</a>
+        </div>
+    </div>
+    
+    <!-- Flirty Messages Generator -->
+    <div class="app-card">
+        <div class="app-card__image">
+            <img src="{{ url_for('static', filename='images/flirtymessages.webp') }}" alt="Flirty Messages Generator">
+        </div>
+        <div class="app-card__content">
+            <h2 class="app-card__title">Flirty Messages Generator</h2>
+            <p class="app-card__description">
+                Generate creative, personalized messages for that special someone. Customize tone, 
+                context, themes, and more to create the perfect message.
+            </p>
+            <a href="{{ url_for('flirty_messages.index') }}" class="app-card__link">Create Messages</a>
+        </div>
+    </div>
+    
+    <!-- Placeholder for future app -->
+    <div class="app-card app-card--coming-soon">
+        <div class="app-card__image">
+            <img src="{{ url_for('static', filename='images/comingsoon.webp') }}" alt="Coming Soon">
+        </div>
+        <div class="app-card__content">
+            <h2 class="app-card__title">More Coming Soon</h2>
+            <p class="app-card__description">
+                We're constantly developing new creative tools to help you generate amazing content.
+                Stay tuned for more exciting additions to our platform!
+            </p>
+            <span class="app-card__link app-card__link--disabled">Coming Soon</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

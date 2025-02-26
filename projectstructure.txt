@@ -1,0 +1,75 @@
+multi_app_platform/
+│
+├── app.py                      # Main Flask application entry point
+├── config.py                   # Shared configuration settings
+├── requirements.txt            # Project dependencies
+├── .env                        # Environment variables (not tracked in git)
+├── README.md                   # Project documentation
+│
+├── static/                     # Shared static files
+│   ├── css/
+│   │   ├── main.css            # Main styling for the platform
+│   │   └── components/         # Reusable CSS components
+│   ├── js/
+│   │   ├── main.js             # Shared JavaScript functionality
+│   │   └── components/         # Reusable JS components
+│   └── images/                 # Shared images
+│       └── logo.png            # Platform logo
+│
+├── templates/                  # Shared templates
+│   ├── base.html               # Base template with navigation
+│   ├── index.html              # Home page
+│   └── error.html              # Error page
+│
+├── utils/                      # Shared utilities
+│   ├── __init__.py
+│   ├── api_helpers.py          # API-related utilities
+│   └── logging.py              # Logging utilities
+│
+├── apps/                       # Individual apps directory
+│   │
+│   ├── bedtime_stories/        # Bedtime Story Generator app
+│   │   ├── __init__.py         # App initialization and blueprint registration
+│   │   ├── routes.py           # Flask routes for this app
+│   │   ├── forms.py            # Form definitions
+│   │   ├── models.py           # Data models if needed
+│   │   ├── api/                # API integrations for this app
+│   │   │   ├── __init__.py
+│   │   │   ├── openai_api.py
+│   │   │   ├── deepseek_api.py
+│   │   │   └── gemini_api.py
+│   │   ├── utils/              # App-specific utilities
+│   │   │   ├── __init__.py
+│   │   │   ├── text_processing.py
+│   │   │   └── tts.py
+│   │   ├── static/             # App-specific static files
+│   │   │   ├── css/
+│   │   │   │   └── stories.css
+│   │   │   └── js/
+│   │   │       └── stories.js
+│   │   └── templates/          # App-specific templates
+│   │       ├── stories/
+│   │       │   ├── index.html
+│   │       │   └── story.html
+│   │
+│   ├── flirty_messages/        # Flirty Text Generator app
+│   │   ├── __init__.py         # App initialization and blueprint registration
+│   │   ├── routes.py           # Flask routes for this app
+│   │   ├── forms.py            # Form definitions
+│   │   ├── models.py           # Data models if needed
+│   │   ├── utils/              # App-specific utilities
+│   │   │   ├── __init__.py
+│   │   │   └── prompt_builder.py
+│   │   ├── static/             # App-specific static files
+│   │   │   ├── css/
+│   │   │   │   └── flirty.css
+│   │   │   └── js/
+│   │   │       └── flirty.js
+│   │   └── templates/          # App-specific templates
+│   │       ├── flirty/
+│   │       │   └── index.html
+│   │
+│   └── __init__.py             # Apps package initialization
+│
+└── logs/                       # Directory for log files
+    └── app.log                 # Main application log

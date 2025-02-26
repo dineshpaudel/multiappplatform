@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Multi-App Platform{% endblock %}</title>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- App-specific CSS -->
+    {% block app_css %}{% endblock %}
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-logo">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Platform Logo">
+                    <span>AI Content Generator</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+                <li><a href="{{ url_for('bedtime_stories.index') }}" class="{% if '/stories' in request.path %}active{% endif %}">Bedtime Stories</a></li>
+                <li><a href="{{ url_for('flirty_messages.index') }}" class="{% if '/flirty' in request.path %}active{% endif %}">Flirty Messages</a></li>
+                <!-- New apps would add their nav links here -->
+            </ul>
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ now.year }} AI Content Generator. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Global JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- App-specific JavaScript -->
+    {% block app_js %}{% endblock %}
+</body>
+</html>

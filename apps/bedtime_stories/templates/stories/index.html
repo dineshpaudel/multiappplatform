@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Bedtime Story Generator{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{{ url_for('bedtime_stories.static', filename='css/stories.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="stories-header">
+    <h1 class="page-title">Bedtime Story Generator</h1>
+    <p class="subtitle">Create personalized bedtime stories with AI</p>
+</div>
+
+<div class="card fadeIn">
+    <form id="story-form" action="{{ url_for('bedtime_stories.generate') }}" method="post">
+        <div class="form-group select-group">
+            <div>
+                <label for="story_length">Story Length</label>
+                <select id="story_length" name="story_length" required>
+                    {% for length in story_lengths %}
+                    <option value="{{ length }}">{{ length }} minutes</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="age_group">Age Group</label>
+                <select id="age_group" name="age_group" required>
+                    {% for age in age_groups %}
+                    <option value="{{ age }}">{{ age }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="genre">Genre</label>
+                <select id="genre" name="genre" required>
+                    {% for genre in genres %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group select-group">
+            <div>
+                <label for="api_provider">AI Provider</label>
+                <select id="api_provider" name="api_provider" required>
+                    {% for provider in api_providers %}
+                    <option value="{{ provider }}">{{ provider }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="api_model">AI Model</label>
+                <select id="api_model" name="api_model" required>
+                    {% for model in api_models[api_providers[0]] %}
+                    <option value="{{ model }}">{{ model }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="custom_prompt">Custom Prompt (Optional)</label>
+            <textarea id="custom_prompt" name="custom_prompt" 
+                      placeholder="Enter a custom prompt or specific story elements you'd like to include..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <button id="submit-btn" type="submit" class="btn">
+                <span class="btn-text">Generate Story</span>
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+        </div>
+
+        <div id="loading-overlay" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p>Generating your story...</p>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block app_js %}
+<script src="{{ url_for('bedtime_stories.static', filename='js/stories.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize story form handlers
+        initializeStoryForm();
+    });
+</script>
+{% endblock %}

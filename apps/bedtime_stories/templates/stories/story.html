@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Your Bedtime Story{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{{ url_for('bedtime_stories.static', filename='css/stories.css') }}">
+{% endblock %}
+
+{% block content %}
+<script>
+    const storyId = "{{ story_id }}";
+</script>
+
+<div class="stories-header">
+    <h1 class="page-title">Your Bedtime Story</h1>
+    <p class="subtitle">Ready to read or listen</p>
+</div>
+
+<div class="card fadeIn">
+    <div class="story-header">
+        <div class="word-count">{{ word_count }} words</div>
+        <a href="{{ url_for('bedtime_stories.export_story', story_id=story_id) }}" class="btn btn-secondary">Export as Text</a>
+    </div>
+    
+    <div class="story-content">
+        {{ story }}
+    </div>
+</div>
+
+<div class="audio-controls card fadeIn">
+    <h2>Listen to the Story</h2>
+    
+    <div class="voice-controls">
+        <div class="form-group">
+            <label for="voice-select">Voice</label>
+            <select id="voice-select" class="voice-select">
+                {% for voice in tts_voices %}
+                <option value="{{ voice.name }}">{{ voice.display_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="speed-select">Reading Speed</label>
+            <select id="speed-select" class="speed-select">
+                {% for speed in tts_speeds %}
+                <option value="{{ speed.value }}">{{ speed.display }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    
+    <audio id="story-audio"></audio>
+    
+    <div class="controls">
+        <button id="play-btn" class="btn">Play</button>
+        <button id="reset-btn" class="btn btn-secondary">Start from Beginning</button>
+    </div>
+    
+    <div id="progress-container" class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+    </div>
+    
+    <div class="download-section">
+        <a id="download-btn" href="#" class="btn btn-secondary" style="display: none;">Download MP3</a>
+        <a href="{{ url_for('bedtime_stories.index') }}" class="btn">Generate New Story</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block app_js %}
+<script src="{{ url_for('bedtime_stories.static', filename='js/stories.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize audio controls
+        initializeAudioControls('{{ url_for("bedtime_stories.generate_audio_route") }}', '{{ url_for("bedtime_stories.download_audio", story_id=story_id) }}');
+    });
+</script>
+{% endblock %}
