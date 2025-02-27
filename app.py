@@ -52,7 +52,6 @@ def register_blueprints(app):
     app.register_blueprint(bedtime_stories_bp, url_prefix='/stories')
     app.register_blueprint(flirty_messages_bp, url_prefix='/flirty')
 
-if __name__ == '__main__':
-    #app = create_app()
-    #app.run(debug=True)
-    app.run(host="0.0.0.0", port=10000, debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=True)
