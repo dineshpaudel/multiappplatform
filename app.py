@@ -53,5 +53,6 @@ def register_blueprints(app):
     app.register_blueprint(flirty_messages_bp, url_prefix='/flirty')
 
 if __name__ == "__main__":
+    app = create_app()  # Call the function to create the app
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port, debug=True)
