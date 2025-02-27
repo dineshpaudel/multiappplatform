@@ -1,17 +1,35 @@
 from flask import Flask, render_template, redirect, url_for
 import os
 from dotenv import load_dotenv
+import base64
 from datetime import datetime
 
 import json
 
-# Get JSON content from Render Environment
-google_creds = os.environ.get("GOOGLE_TTS_JSON")
 
-if google_creds:
-    creds_path = "/opt/render/project/.gcp_key.json"
+creds_path = "/opt/render/project/.gcp_key.json"
+
+if not os.path.exists(creds_path):
+    print(f"❌ Google Cloud credentials file NOT found at: {creds_path}")
+else:
+    print(f"✅ Google Cloud credentials file exists at: {creds_path}")
+
+print(f"GOOGLE_APPLICATION_CREDENTIALS: {os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')}")
+
+
+creds_path = "/opt/render/project/.gcp_key.json"
+
+# Get the base64 JSON string from environment
+google_creds_b64 = os.environ.get("GOOGLE_TTS_JSON")
+
+if google_creds_b64:
+    # Decode and write the JSON key file
+    google_creds = base64.b64decode(google_creds_b64).decode("utf-8")
+    
     with open(creds_path, "w") as f:
         f.write(google_creds)
+    
+    # Set the environment variable for Google API
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = creds_path
 
 
