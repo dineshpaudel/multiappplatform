@@ -3,6 +3,18 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 
+import json
+
+# Get JSON content from Render Environment
+google_creds = os.environ.get("GOOGLE_TTS_JSON")
+
+if google_creds:
+    creds_path = "/opt/render/project/.gcp_key.json"
+    with open(creds_path, "w") as f:
+        f.write(google_creds)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = creds_path
+
+
 # Load environment variables
 load_dotenv()
 
